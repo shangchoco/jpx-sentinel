@@ -7,3 +7,10 @@
 
 # 환경 변수 무시
 .env
+
+# 빌드 산출물 및 캐시 제외
+.gradle/
+build/
+bin/
+__pycache__/
+*.pyc
