@@ -54,7 +54,7 @@ JPX 上場廃止情報の**手動確認作業を完全自動化**するために
 
 
 
-#-技術スタック
+
 
 <img width="864" height="524" alt="image" src="https://github.com/user-attachments/assets/d1090f72-2770-4809-b95b-7ef5658d7471" />
 
