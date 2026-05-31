@@ -169,9 +169,6 @@ json
 
 🗄️ DB テーブル定義
 テーブル名: delistings　DB: jpx_database　エンジン: MySQL 8.0 InnoDB
-
-
-
 カラム名	型	PK	NOT NULL	説明
 id	INT	✅	✅	AUTO_INCREMENT サロゲートキー
 stock_code	VARCHAR(20)	—	✅	銘柄コード（UNIQUE・半角変換済）
