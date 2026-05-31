@@ -46,6 +46,8 @@ JPX 上場廃止情報の**手動確認作業を完全自動化**するために
 ---
 
 ## 🏗️ システム構成
+
+
 <img width="1372" height="784" alt="Gemini_Generated_Image_sqnbbysqnbbysqnb" src="https://github.com/user-attachments/assets/ece8a447-bc6d-42f2-9ac7-caa41e06ff08" />
 
 
@@ -68,84 +70,6 @@ JPX 上場廃止情報の**手動確認作業を完全自動化**するために
 
 
 
-⚙️ 実行モード
-APP_MODE 環境変数によって動作を切り替えます。
-
-bash
-
-# BATCH モード（本番 / デフォルト）
-# ECS タスク起動と同時にスクレイピングを実行し、完了後に自動終了
-APP_MODE=BATCH
-# DEV モード（開発）
-# Flask サーバーを常駐させ、API エンドポイントで手動実行可能
-APP_MODE=DEV
-
-モード	動作	用途
-BATCH	起動 → スクレイピング → 自動終了	ECS 本番運用
-DEV	Flask 常駐 + API 経由で任意実行	ローカル開発・テスト
-
-🚀 セットアップ（ローカル開発）
-前提条件
-Docker / Docker Compose インストール済み
-Slack Incoming Webhook URL 取得済み
-手順
-bash
-
-# 1. リポジトリをクローン
-git clone [github.com](https://github.com/shangchoco/jpx-sentinel-ecs.git)
-cd jpx-sentinel-ecs
-# 2. 環境変数ファイルを作成
-cp .env.example .env
-# .env を編集して各値を設定（下記「環境変数」参照）
-# 3. コンテナ起動
-docker compose up -d
-# 4. DEV モードでスクレイピングを手動実行
-curl [localhost](http://localhost:5000/python/scrape)
-
-🔐 環境変数
-.env ファイルまたは ECS タスク定義で設定してください。
-認証情報はソースコードに直接書かないでください。
-
-
-
-変数名	説明	例
-APP_MODE	実行モード	BATCH / DEV
-MYSQL_HOST	MySQL ホスト	db / RDS エンドポイント
-MYSQL_PORT	MySQL ポート	3306
-MYSQL_DATABASE	DB 名	jpx_database
-MYSQL_USER	DB ユーザー	jpxuser
-MYSQL_PASSWORD	DB パスワード	**強固な文字列を設定**
-SLACK_WEBHOOK_URL	Slack Webhook URL	[hooks.slack.com](https://hooks.slack.com/)
-PYTHONUNBUFFERED	ログリアルタイム出力	1
-
-🔌 API エンドポイント
-DEV モード起動時のみ有効です。
-
-メソッド	エンドポイント	説明	レスポンス
-GET	/	ヘルスチェック	200 OK
-GET	/python/scrape	スクレイピング手動実行	JSON
-/python/scrape レスポンス例
-json
-
-
-{
-  "status": "success",
-  "message": "本日新規公示 2件 登録。",
-  "total_scraped": 5,
-  "new_inserted": 2
-}
-
-🗄️ DB テーブル定義
-テーブル名: delistings　DB: jpx_database　エンジン: MySQL 8.0 InnoDB
-カラム名	型	PK	NOT NULL	説明
-id	INT	✅	✅	AUTO_INCREMENT サロゲートキー
-stock_code	VARCHAR(20)	—	✅	銘柄コード（UNIQUE・半角変換済）
-stock_name	VARCHAR(100)	—	✅	銘柄名（株式会社除去・正規化済）
-delisting_date	VARCHAR(50)	—	—	上場廃止予定日（例: 2026年6月30日）
-cleanup_start_date	VARCHAR(50)	—	—	整理売買開始日
-cleanup_end_date	VARCHAR(50)	—	—	整理売買終了日
-news_url	VARCHAR(512)	—	—	JPX 詳細ページ URL
-created_at	DATETIME	—	✅	レコード作成日時（DEFAULT CURRENT_TIMESTAMP）
 
 🔄 処理シーケンス
 
