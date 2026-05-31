@@ -65,6 +65,9 @@ JPX 上場廃止情報の**手動確認作業を完全自動化**するために
 
 
 📁 ディレクトリ構成
+
+
+
 <img width="625" height="372" alt="image" src="https://github.com/user-attachments/assets/ef690f9a-8e69-4062-a93f-a4091c0cefd8" />
 
 
@@ -73,5 +76,4 @@ JPX 上場廃止情報の**手動確認作業を完全自動化**するために
 
 🔄 処理シーケンス
 
-<img width="965" height="750" alt="diagram" src="https://github.com/user-attachments/assets/06c63539-010f-479d-bf65-6ad91dcb2502" />
-
+<img width="842" height="835" alt="image" src="https://github.com/user-attachments/assets/6b25b7c5-03b3-4f39-a4c4-99bb26527acc" />
