@@ -48,57 +48,19 @@ JPX 上場廃止情報の**手動確認作業を完全自動化**するために
 ## 🏗️ システム構成
 <img width="1372" height="784" alt="Gemini_Generated_Image_sqnbbysqnbbysqnb" src="https://github.com/user-attachments/assets/ece8a447-bc6d-42f2-9ac7-caa41e06ff08" />
 
-```mermaid
-flowchart LR
-    EB["⏰ EventBridge\nScheduler"]
-    ECS["🐳 AWS ECS Fargate\nPython / Flask\nSelenium Chrome"]
-    JPX["🌐 JPX 公式サイト\n上場廃止情報"]
-    RDS[("🗄️ Amazon RDS\nMySQL 8.0\ndelistings")]
-    SLACK["💬 Slack\nIncoming Webhook"]
-    SB["☕ Spring Boot API\nExcel 出力"]
-    ADMIN["🖥️ 管理者PC\nExcel Download"]
+<img width="804" height="324" alt="image" src="https://github.com/user-attachments/assets/7cdaf97f-4322-4bc1-a2f0-978a566759b4" />
 
-    EB -->|"定刻トリガー"| ECS
-    ECS -->|"スクレイピング"| JPX
-    JPX -->|"HTML取得"| ECS
-    ECS -->|"INSERT IGNORE"| RDS
-    ECS -->|"新規のみ通知"| SLACK
-    RDS -->|"データ照会"| SB
-    SB -->|"Excel出力"| ADMIN
 
-構成ポイント
-EventBridge Scheduler が ECS タスクを定刻起動
-Selenium で JPX ページをレンダリングして HTML 解析・銘柄情報抽出
-MySQL UNIQUE 制約により同一銘柄の重複登録を防止
-新規登録時のみ Slack 通知を発火（重複通知ゼロ）
-Spring Boot API が RDS を参照し Excel 形式でデータ出力
-全コンポーネントを Docker コンテナとして管理、ECS 上でスケーラブルに稼働
 
-🛠️ 技術スタック
-レイヤー	技術	用途
-スクレイピング	Python 3.13 + Selenium	JPX ページ解析・銘柄情報抽出
-API サーバー	Flask	DEV モード用 REST API
-バックエンド	Java + Spring Boot	データ分析・集計・Excel 出力
-データベース	MySQL 8.0 (Amazon RDS)	上場廃止銘柄データ永続化
-通知	Slack Incoming Webhook	リアルタイム Slack 通知
-インフラ	AWS ECS (Fargate)	コンテナ実行環境
-IaC	Terraform	インフラ構成管理
-ローカル開発	Docker Compose	開発・テスト環境
+#-技術スタック
+
+<img width="864" height="524" alt="image" src="https://github.com/user-attachments/assets/d1090f72-2770-4809-b95b-7ef5658d7471" />
+
+
 
 📁 ディレクトリ構成
-jpx-sentinel-ecs/
-├── .github/
-│   └── workflows/          # CI/CD ワークフロー
-├── backend/                # Spring Boot プロジェクト
-├── terraform/              # Terraform IaC 定義
-├── Dockerfile              # Python コンテナ定義
-├── docker-compose.yml      # ローカル開発環境
-├── main.py                 # エントリポイント・Flask アプリ
-├── scraper.py              # JPX スクレイピングロジック
-├── database.py             # MySQL 接続・保存処理
-├── init_db.py              # テーブル初期化
-├── slack_alarm.py          # Slack Webhook 通知
-└── requirements.txt        # Python 依存パッケージ
+<img width="625" height="372" alt="image" src="https://github.com/user-attachments/assets/ef690f9a-8e69-4062-a93f-a4091c0cefd8" />
+
 
 ⚙️ 実行モード
 APP_MODE 環境変数によって動作を切り替えます。
