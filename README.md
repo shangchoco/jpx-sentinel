@@ -48,6 +48,8 @@ JPX 上場廃止情報の**手動確認作業を完全自動化**するために
 ## 🏗️ システム構成
 <img width="1372" height="784" alt="Gemini_Generated_Image_sqnbbysqnbbysqnb" src="https://github.com/user-attachments/assets/ece8a447-bc6d-42f2-9ac7-caa41e06ff08" />
 
+
+
 <img width="804" height="324" alt="image" src="https://github.com/user-attachments/assets/7cdaf97f-4322-4bc1-a2f0-978a566759b4" />
 
 
@@ -58,8 +60,12 @@ JPX 上場廃止情報の**手動確認作業を完全自動化**するために
 
 
 
+
+
 📁 ディレクトリ構成
 <img width="625" height="372" alt="image" src="https://github.com/user-attachments/assets/ef690f9a-8e69-4062-a93f-a4091c0cefd8" />
+
+
 
 
 ⚙️ 実行モード
